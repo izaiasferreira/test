@@ -55,9 +55,8 @@ router.put('/', function (req, res, next) {
 
 router.delete('/', function (req, res, next) {
   var id = req.query.id
-  var filter = database.users.filter(u => u.id !== id)
+  var filter = database.users.filter(u => u.id != id)
   database.users = filter
-  console.log(database.users);
   res.status(200).end();
 });
 module.exports = router;
