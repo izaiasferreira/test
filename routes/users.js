@@ -29,26 +29,28 @@ var database = {
   ]
 }
 /* GET users listing. */
-router.get('/allClients', function (req, res, next) {
-  res.render(200).json(database);
+router.get('/', function (req, res, next) {
+  res.status(200).json(database.users);
 });
 
-router.get('/', function (req, res, next) {
+router.get('/find', function (req, res, next) {
   var index = database.users.findIndex(u => u.cpf === req.query.cpf)
   res.status(200).json(database.users[index]);
 });
 
 router.post('/', function (req, res, next) {
   var user = req.body
-  database.users.push(user)
-  res.status(200);
+  var databaseUsers = database.users
+  databaseUsers.push(user)
+  database.users = databaseUsers
+  res.status(200).end();
 });
 
 router.put('/', function (req, res, next) {
   var user = req.body
   var index = database.users.findIndex(u => u.id === user.id)
   database.users[index] = user
-  res.status(200);
+  res.status(200).end();
 });
 
 router.delete('/', function (req, res, next) {
@@ -56,6 +58,6 @@ router.delete('/', function (req, res, next) {
   var filter = database.users.filter(u => u.id !== id)
   database.users = filter
   console.log(database.users);
-  res.status(200);
+  res.status(200).end();
 });
 module.exports = router;
