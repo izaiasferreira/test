@@ -30,13 +30,14 @@ var database = {
 }
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.status(200).json(database.users);
-});
-
-router.get('/find', function (req, res, next) {
   var index = database.users.findIndex(u => u.cpf === req.query.cpf)
   res.status(200).json(database.users[index]);
 });
+
+router.get('/alll', function (req, res, next) {
+  res.status(200).json(database.users);
+});
+
 
 router.post('/', function (req, res, next) {
   var user = req.body
